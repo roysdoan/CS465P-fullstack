@@ -38,7 +38,6 @@ function fizzBuzz(n) {
     } else if (i % 5 === 0) {
       answer.push("Buzz");
     } else {
-      g;
       answer.push(String(i));
     }
   }
