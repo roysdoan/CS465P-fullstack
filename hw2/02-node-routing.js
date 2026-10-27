@@ -29,7 +29,7 @@ const server = http.createServer((req, res) => {
     res.end("<p>this resource was cached</p>");
   } else if (req.url === "/cookie") {
     res.writeHead(200, {
-      "Content-Type": "text/plain",
+      "Content-Type": "text/plain; charset=utf-8",
       "Set-Cookie": "hello=world",
     });
     res.end("cookies… yummm");

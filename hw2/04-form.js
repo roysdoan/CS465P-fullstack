@@ -6,10 +6,10 @@ const express = require("express");
 const app = express();
 const port = process.env.PORT || 5001;
 
-// Read form data
+//Read form data
 app.use(express.urlencoded({ extended: true }));
 
-// Display form
+//Display form
 app.get("/form", (req, res) => {
   res.send(`
     <h1>User Form</h1>
@@ -24,19 +24,33 @@ app.get("/form", (req, res) => {
 
       <br><br>
 
+      <label>Comments:</label>
+      <textarea name="comments"></textarea>
+
+      <br><br>
+
+      <label>
+        <input type="checkbox" name="newsletter" value="yes">
+        Sign up for newsletter
+      </label>
+
+      <br><br>
+
       <button type="submit">Submit</button>
     </form>
   `);
 });
 
-// Display submitted data
+//Display submitted data
 app.post("/submit", (req, res) => {
-  const { username, email } = req.body;
+  const { username, email, comments, newsletter } = req.body;
 
   res.send(`
     <h1>Form Submitted!</h1>
     <p>Username: ${username}</p>
     <p>Email: ${email}</p>
+    <p>Comments: ${comments || ""}</p>
+    <p>Newsletter: ${newsletter === "yes" ? "Yes" : "No"}</p>
   `);
 });
 
