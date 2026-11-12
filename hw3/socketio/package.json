@@ -1,0 +1,9 @@
+{
+  "name": "roydoan-socket-chat-ex",
+  "version": "0.0.1",
+  "description": "my first socket.io app",
+  "dependencies": {
+    "express": "^4.22.3",
+    "socket.io": "^4.8.4"
+  }
+}
