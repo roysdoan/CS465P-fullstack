@@ -3,7 +3,7 @@ import Countries from "./Countries";
 import Populous from "./Populous";
 import Regions from "./Regions";
 
-function Home() {
+const Home = function Home() {
   return (
     <main>
       <h1>Countries App</h1>
@@ -22,9 +22,9 @@ function Home() {
       </nav>
     </main>
   );
-}
+};
 
-function App() {
+const App = function App() {
   return (
     <BrowserRouter>
       <Routes>
@@ -36,6 +36,6 @@ function App() {
       </Routes>
     </BrowserRouter>
   );
-}
+};
 
 export default App;

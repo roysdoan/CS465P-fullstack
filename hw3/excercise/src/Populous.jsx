@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-function Populous() {
+const MIN_POPULATION = 50000000;
+
+const Populous = function Populous() {
   const [countries, setCountries] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   // Load and filter country data when this page opens
   useEffect(() => {
-    async function loadCountries() {
+    const loadCountries = async function loadCountries() {
       try {
         const response = await fetch("/api/countries");
 
@@ -20,7 +22,7 @@ function Populous() {
 
         // Keep populations of at least 50 million, largest first
         const populous = data
-          .filter((country) => country.population >= 50000000)
+          .filter((country) => country.population >= MIN_POPULATION)
           .sort((a, b) => b.population - a.population);
 
         setCountries(populous);
@@ -29,7 +31,7 @@ function Populous() {
       } finally {
         setLoading(false);
       }
-    }
+    };
 
     loadCountries();
   }, []);
@@ -44,14 +46,14 @@ function Populous() {
       {error && <p>{error}</p>}
 
       {countries.map((country) => (
-        <section key={country.names.common}>
-          <h2>{country.names.common}</h2>
+        <section key={country.names?.common || country.codes?.cca3}>
+          <h2>{country.names?.common || "Unnamed country"}</h2>
 
           {/* Display the flag when an image URL is available */}
           {country.flag?.url_png ? (
             <img
               src={country.flag.url_png}
-              alt={`Flag of ${country.names.common}`}
+              alt={`Flag of ${country.names?.common || "Unknown country"}`}
               width="150"
             />
           ) : (
@@ -63,6 +65,6 @@ function Populous() {
       ))}
     </main>
   );
-}
+};
 
 export default Populous;

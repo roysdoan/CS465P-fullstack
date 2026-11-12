@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-function Regions() {
+const Regions = function Regions() {
   const [regions, setRegions] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    async function loadRegions() {
+    const loadRegions = async function loadRegions() {
       try {
         const response = await fetch("/api/countries");
 
@@ -36,7 +36,7 @@ function Regions() {
       } finally {
         setLoading(false);
       }
-    }
+    };
 
     loadRegions();
   }, []);
@@ -61,6 +61,6 @@ function Regions() {
         ))}
     </main>
   );
-}
+};
 
 export default Regions;

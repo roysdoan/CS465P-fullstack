@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-function Countries() {
+const Countries = function Countries() {
   const [countries, setCountries] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   // Load countries from our backend when this page opens
   useEffect(() => {
-    async function loadCountries() {
+    const loadCountries = async function loadCountries() {
       try {
         const response = await fetch("/api/countries");
 
@@ -23,7 +23,7 @@ function Countries() {
       } finally {
         setLoading(false);
       }
-    }
+    };
 
     loadCountries();
   }, []);
@@ -32,15 +32,16 @@ function Countries() {
     <main>
       <Link to="/home">Back to home</Link>
       <h1>All Countries</h1>
+
       {loading && <p>Loading countries...</p>}
       {error && <p>{error}</p>}
+
       {/* The backend returns countries in alphabetical order */}
       {countries.map((country) => (
-        <section key={country.names.common}>
-          <h2>{country.names.common}</h2>
+        <section key={country.names?.common || country.codes?.cca3}>
+          <h2>{country.names?.common || "Unnamed country"}</h2>
 
           {/* Show all capitals and currencies, with fallbacks for missing data */}
-
           <p>
             Capital:{" "}
             {country.capitals?.map((capital) => capital.name).join(", ") ||
@@ -60,6 +61,6 @@ function Countries() {
       ))}
     </main>
   );
-}
+};
 
 export default Countries;
